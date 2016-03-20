@@ -60,12 +60,10 @@ function showHTML() {
 //FUNCTIONS
 function importEvents($chosen) {
 	
-	$import_py_dir = '/home/abjectio/koding/wp-labora-py/';
-	$import_py = $import_py_dir . 'import_events.py';
 	
 	if(isset($chosen)){
 				
-		$cmdline = $import_py . ' ' . $import_py_dir . 'import_events_' . $chosen . '.cfg';
+		$cmdline = constant('IMPORT_PY') . ' ' . constant('IMPORT_PY_DIR') . constant('IMPORT_PY_EVENTS'). $chosen . '.cfg';
 		echo '<b>Eksekverer importeringer av ' . $chosen . '</b>';
 		//echo '</br>Command (runs on server) => ' . $cmdline;
 		$result = shell_exec($cmdline . ' >> /dev/null &');
@@ -76,7 +74,7 @@ function importEvents($chosen) {
 //Refresh the Log
 function refreshLog() {	
 	
-	$output = shell_exec('tail -20 /tmp/import_events.log');
+	$output = shell_exec(constant('REFRESH_LOG_CMD'));
 	$output = str_replace("INFO","</br>INFO",$output);	
 	echo $output;
 }

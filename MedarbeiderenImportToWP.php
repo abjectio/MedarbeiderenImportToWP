@@ -8,6 +8,14 @@ Author: Knut Erik Hollund
 Author URI: http://about:none/
 License: GPLv3
 */
+	
+	//Define constants used
+	define('IMPORT_PY_DIR', dirname(__FILE__) . '/wp-labora-py/');
+	define('IMPORT_PY', constant('IMPORT_PY_DIR') . 'import_events.py');
+	define('IMPORT_PY_EVENTS', 'import_events_');
+	define('REFRESH_LOG_CMD', 'tail -20 /tmp/import_events.log');
+	
+
 	require_once( dirname(__FILE__) . '/medarbeideren-import.php' );
 
 	/* Runs when plugin is activated */
