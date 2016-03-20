@@ -4,15 +4,17 @@
  *
  */
 
+
 function showHTML() {
 
-	if ( !current_user_can('import') )
+  if ( !current_user_can('import') )
 		wp_die(__('You do not have sufficient permissions of this site.'));
 
 	//Get the chosen events
 	$chosen = $_REQUEST['chosen'];
 	$refresh_btn = $_REQUEST['refresh-log-btn'];
 	$import_btn = $_REQUEST['start-import-btn'];
+	
 	$title = __('Medarbeideren import');
 	?>
 		<h1><?php echo esc_html( $title ); ?></h1>
@@ -36,7 +38,7 @@ function showHTML() {
 			</select>
 			
 			<p>
-			  <button name="start-import-btn" class="button-primary">Start Import</button>
+			  <button name="start-import-btn" class="button-primary">Start Import</button>			  
 			</p>
 			<hr>
 		</form>
