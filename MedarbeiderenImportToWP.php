@@ -45,7 +45,7 @@ License: GPLv3
 ?>
 			
 		<h1>Import events from Medarbeideren to WP</h1>
-		<form role="form" method="post" action="?> <?php __FILE__ ?>">
+		<form role="form" method="post" action="options.php">
 		<?php wp_nonce_field('update-options'); ?>
 
 		 <div class="row">
@@ -54,8 +54,12 @@ License: GPLv3
 		</div>
 		 <div class="row">
 		  <div class="col-sm-4">Jesha</div>
-		  <div class="col-sm-8"><button type="submit" id="jesha" class="btn btn-default">Start import</button></div>
+		  <div class="col-sm-8"><button type="submit" id="jesha" onClick="hva.value='jesha'" class="btn btn-default">Start import</button></div>
+		  <input type="text" name="hva" value="nei" />
 		</div>
+
+		<input type="hidden" name="action" value="update" />
+
 		
 		</form>
 		<?php
