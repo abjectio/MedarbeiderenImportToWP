@@ -1,7 +1,7 @@
 <?php
-/**
- * Medarbeideren export
- *
+
+/*
+ * showHTML - displays the plugin within the admin menu  
  */
 function showHTML() {
 
@@ -12,12 +12,23 @@ function showHTML() {
 	$chosen = $_REQUEST['chosen'];
 	$refresh_btn = $_REQUEST['refresh-log-btn'];
 	$import_btn = $_REQUEST['start-import-btn'];
+
+	//Styles and scripts (Bootstrap)
+	wp_register_style( 'medimp_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' );
+	wp_register_style( 'medimp_bootstraptheme', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' );
+	wp_register_script( 'medimp_jquery', '////ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js' );
+	wp_register_script( 'medimp_bootstrap_js', '////maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' );
+	
+	wp_enqueue_style( 'medimp_bootstrap');
+	wp_enqueue_style( 'medimp_bootstraptheme');
+	wp_enqueue_script( 'medimp_jquery');
+	wp_enqueue_script( 'medimp_bootstrap_js');
 	
 	?>
 
  </br>
  <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-4">
 	<div class="panel panel-info">
 	  <div class="panel-heading">Medarbeideren import - informasjon</div>
 	  <div class="panel-body">
@@ -52,7 +63,6 @@ function showHTML() {
 	<div class="panel panel-default">
 	  <div class="panel-heading">Les fra server loggen</div>
 	  <div class="panel-body">
-
 			<p>Oppfrisker loggen med et utdrag fra importen (resultat vises nedenfor knappen).</p>
 			<p>Når importen er ferdig vil du se teksten <b>[END IMPORT]</b> i loggen.</p>
 			<form action="admin.php?page=medarbeideren-import" method="post">
@@ -61,7 +71,7 @@ function showHTML() {
 	  </div> <!-- Panel body -->
 	</div> <!-- Panel info default -->
  </div> <!-- venstre kolonne -->
- <div class="col-sm-6">
+ <div class="col-sm-8">
 	<div class="panel panel-primary">
 	  <div class="panel-heading">Server logg</div>
 	  <div class="panel-body">
@@ -70,23 +80,22 @@ function showHTML() {
 			
 				//Check what action to perform - refresh or the import?
 				if(isset($chosen) && isset($import_btn)) {importEvents($chosen);};
-				if(isset($refresh_btn)){refreshLog();};	
-				
+				if(isset($refresh_btn)){refreshLog();};			
 			?>
-	</div> <!-- Panel body -->
-	</div> <!-- Panel info default -->
- </div> <!-- hoyre kolonne -->
-</div>	 <!-- grid end -->
+			
+			</div> <!-- Panel body -->
+		</div> <!-- Panel info default -->
+	 </div> <!-- hoyre kolonne -->
+	</div>	 <!-- grid end -->
+	
 <?php	
 }
 
 
-//FUNCTIONS
+//Fire off the import
 function importEvents($chosen) {
-	
-	
+		
 	if(isset($chosen)){
-				
 		$cmdline = constant('IMPORT_PY') . ' ' . constant('IMPORT_PY_DIR') . constant('IMPORT_PY_EVENTS'). $chosen . '.cfg';
 		echo '<b>Eksekverer importeringer av ' . $chosen . '</b>';
 		//echo '</br>Command (runs on server) => ' . $cmdline;
@@ -99,7 +108,9 @@ function importEvents($chosen) {
 function refreshLog() {	
 	
 	$output = shell_exec(constant('REFRESH_LOG_CMD'));
-	$output = str_replace("INFO","</br>INFO",$output);	
+	$output = '<code>' . $output;
+	$output = str_replace(PHP_EOL,"</br>",$output);	
+	$output = $output . '</code>';
 	echo $output;
 }
 ?>

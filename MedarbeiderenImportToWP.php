@@ -24,34 +24,31 @@ License: GPLv3
 
 	/* Runs on plugin deactivation*/
 	register_deactivation_hook( __FILE__, 'med_import_to_wp_remove' );
-
 	
 	function med_import_to_wp_install() {
-	/* Creates new database field */
+		/* Creates new database field */
 		//add_option('wp_exec_cmd_data', 'Default', '', 'yes');
 	}
 
 	function med_import_to_wp_remove() {
-	/* Deletes the database field */
-	//	delete_option('wp_exec_cmd_data');
+		/* Deletes the database field */
+		//	delete_option('wp_exec_cmd_data');
 	}
 
 	if (is_admin() ){
+		
 		/* Call the code */
 		add_action('admin_menu', 'med_import_to_wp_admin_menu');		
+		
 		function med_import_to_wp_admin_menu() {			
 			add_utility_page( 'Medarbeideren import', 'Medarbeideren import', 'administrator', 'medarbeideren-import','showHTML');
 		}		
 	}	
 	
-	function myplugin_settings_admininit() {
-?>	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<?php	
+	function myplugin_settings_admininit() {			
 		//register_setting( 'myplugin', 'myplugin_setting_1', 'intval' );
-		//register_setting( 'myplugin', 'myplugin_setting_2', 'intval' );
+		//register_setting( 'myplugin', 'myplugin_setting_2', 'intval' );		
 	}
 	add_action( 'admin_init', 'myplugin_settings_admininit' );	
+	
 ?>
