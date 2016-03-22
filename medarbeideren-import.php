@@ -3,8 +3,6 @@
  * Medarbeideren export
  *
  */
-
-
 function showHTML() {
 
   if ( !current_user_can('import') )

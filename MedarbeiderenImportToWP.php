@@ -16,6 +16,7 @@ License: GPLv3
 	define('REFRESH_LOG_CMD', 'tail -20 /tmp/import_events.log');
 	
 
+	//Require once to load the php code, else it would not be found
 	require_once( dirname(__FILE__) . '/medarbeideren-import.php' );
 
 	/* Runs when plugin is activated */
@@ -24,6 +25,7 @@ License: GPLv3
 	/* Runs on plugin deactivation*/
 	register_deactivation_hook( __FILE__, 'med_import_to_wp_remove' );
 
+	
 	function med_import_to_wp_install() {
 	/* Creates new database field */
 		//add_option('wp_exec_cmd_data', 'Default', '', 'yes');
@@ -34,8 +36,7 @@ License: GPLv3
 	//	delete_option('wp_exec_cmd_data');
 	}
 
-	if (is_admin() ){				
-
+	if (is_admin() ){
 		/* Call the code */
 		add_action('admin_menu', 'med_import_to_wp_admin_menu');		
 		function med_import_to_wp_admin_menu() {			
