@@ -60,7 +60,7 @@ function showHTML() {
 						<button type="submit" name="start-import-btn" class="btn btn-danger">Start import</button>
 					</form>
 				</div> <!-- Panel body end -->
-				</div> <!-- Panel IMPORT END -->
+			</div> <!-- Panel IMPORT END -->
 				
 			<!-- Panel REFRESH LOG -->
 			<div class="panel panel-default">
@@ -73,7 +73,7 @@ function showHTML() {
 					<button name="refresh-log-btn" class="btn btn-primary">Refresh Log</button>
 				</form>
 				</div> <!-- Panel body end -->
-				</div> <!-- Panel REFRESH LOG END -->
+			</div> <!-- Panel REFRESH LOG END -->
 				
 		</div> <!-- LEFT COLUMN END -->
 		
