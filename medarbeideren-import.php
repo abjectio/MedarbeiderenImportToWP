@@ -16,8 +16,8 @@ function showHTML() {
 	//Styles and scripts (Bootstrap)
 	wp_register_style( 'medimp_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' );
 	wp_register_style( 'medimp_bootstraptheme', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' );
-	wp_register_script( 'medimp_jquery', '////ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js' );
-	wp_register_script( 'medimp_bootstrap_js', '////maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' );
+	wp_register_script( 'medimp_jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js' );
+	wp_register_script( 'medimp_bootstrap_js', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' );
 	
 	wp_enqueue_style( 'medimp_bootstrap');
 	wp_enqueue_style( 'medimp_bootstraptheme');
