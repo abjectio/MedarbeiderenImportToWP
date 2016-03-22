@@ -27,7 +27,11 @@ function showHTML() {
 	?>
 
 	</br>
-	<!-- GRID WITH TWO COLUMNS -->
+	
+	<!-- One Form -->
+	<form role="form" method="post" action="admin.php?page=medarbeideren-import">
+
+	<!-- GRID WITH TWO COLUMNS -->	
 	<div class="row">
 		
 		<!-- LEFT COLUMN -->
@@ -43,22 +47,23 @@ function showHTML() {
 				</div> <!-- Panel body end -->
 			</div> <!-- Panel INFO END -->
 		
-		
+
 			<!-- Panel IMPORT -->
 			<div class="panel panel-default">
 				<div class="panel-heading">Import</div>
 				<div class="panel-body">
-					<form method="post" action="admin.php?page=medarbeideren-import">
-						<label >Velg gruppe for import : </label>
-						<select name="chosen">
-							<option value="gudstjenester" <?php echo ($chosen=='gudstjenester' ? 'selected' : '') ?>>Gudstjenester</option>
-							<option value="jesha" <?php echo ($chosen=='jesha' ? 'selected' : '') ?>>Jesha</option>
-							<option value="esc" <?php echo ($chosen=='esc' ? 'selected' : '') ?>>ESC (Ungdom)</option>
-							<option value="konfirmant" <?php echo ($chosen=='konfirmant' ? 'selected' : '') ?>>Konfirmant</option>
-							<option value="tabago" <?php echo ($chosen=='tabago' ? 'selected' : '') ?>>Tabago</option>
-						</select></br>
-						<button type="submit" name="start-import-btn" class="btn btn-danger">Start import</button>
-					</form>
+					<div class="form-group">
+							<label for="chosen">Velg gruppe for import:</label>
+							<select class="form-control" id="chosen" name="chosen">
+								<option value="gudstjenester" <?php echo ($chosen=='gudstjenester' ? 'selected' : '') ?>>Gudstjenester</option>
+								<option value="jesha" <?php echo ($chosen=='jesha' ? 'selected' : '') ?>>Jesha</option>
+								<option value="esc" <?php echo ($chosen=='esc' ? 'selected' : '') ?>>ESC (Ungdom)</option>
+								<option value="konfirmant" <?php echo ($chosen=='konfirmant' ? 'selected' : '') ?>>Konfirmant</option>
+								<option value="tabago" <?php echo ($chosen=='tabago' ? 'selected' : '') ?>>Tabago</option>
+						  </select>
+						</div> <!-- Form Group -->
+						<button type="submit" id="start-import-btn" name="start-import-btn" class="btn btn-danger">Start import</button>
+
 				</div> <!-- Panel body end -->
 			</div> <!-- Panel IMPORT END -->
 				
@@ -69,9 +74,7 @@ function showHTML() {
 					<p>Oppfrisker loggen med et utdrag fra importen (resultat vises nedenfor knappen).</p>
 					<p>Når importen er ferdig vil du se teksten <b>[END IMPORT]</b> i loggen.</p>
 					
-				<form action="admin.php?page=medarbeideren-import" method="post">
 					<button name="refresh-log-btn" class="btn btn-primary">Refresh Log</button>
-				</form>
 				</div> <!-- Panel body end -->
 			</div> <!-- Panel REFRESH LOG END -->
 				
@@ -93,7 +96,9 @@ function showHTML() {
 				</div> <!-- Panel LOG OUTPUT END -->
 				
 		</div> <!-- RIGHT COLUMN END -->
-	</div> <!-- GRID WITH TWO COLUMNS END -->	
+	</div> <!-- GRID WITH TWO COLUMNS END -->
+	
+	</form> <!-- Everything in one form -->
 <?php	
 }
 
@@ -106,8 +111,11 @@ function showHTML() {
 function importEvents($chosen) {
 		
 	if(isset($chosen)){
+		
+		$alertmsg = '<div class="alert alert-warning">Eksekverer importering av gruppen - <strong>' . $chosen . '</strong></div>';
+		
 		$cmdline = constant('IMPORT_PY') . ' ' . constant('IMPORT_PY_DIR') . constant('IMPORT_PY_EVENTS'). $chosen . '.cfg';
-		echo '<b>Eksekverer importeringer av ' . $chosen . '</b>';
+		echo $alertmsg;
 		//echo '</br>Command (runs on server) => ' . $cmdline;
 		$result = shell_exec($cmdline . ' >> /dev/null &');
 		refreshLog();		
