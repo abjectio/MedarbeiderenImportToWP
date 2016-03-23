@@ -41,9 +41,8 @@ function showHTML() {
 				<div class="panel-heading">Medarbeideren import - informasjon</div>
 				<div class="panel-body">
 					<p>Funksjonen nedenfor eksekverer en import rutine på tjeneren. Den vil hente data fra Medarbeideren og importere disse inn i wordpress instansen.</p>
-					<p>Når importen er startet vil du ikke få noe øyeblikkelig tilbakemelding om den er ferdig eller fortsatt kjørende, da eksekveringen går på tjeneren uavhengig av denne siden (en prosess i bakgrunnen startes på tjeneren).</p>
-					<p>For å ha en noenlunde feeling på hvor prosessen er kan du trykke på <b>Refresh Log</b> knappen nedenfor, som vil vise de siste 20 linjene fra import loggen.</p>
-					<p style="color:red;">NB: Ikke eksekver mange importer samtidig, dette er ennå ikke testet! Ha tålmodighet og se om importen er ferdig først.</p>
+					<p>Når importen er startet vil loggen starte å vise resultater fra kjøringen. Selve importen er en eksekvering som går uavhengig på tjeneren.</p>
+					<p>Loggen på høyre side vil vise resultatet av importen fra medarbeideren.</p>
 				</div> <!-- Panel body end -->
 			</div> <!-- Panel INFO END -->
 		
@@ -53,7 +52,7 @@ function showHTML() {
 				<div class="panel-heading">Import</div>
 				<div class="panel-body">
 					<div class="form-group">
-							<label for="chosen">Velg gruppe for import:</label>
+							<label for="chosen">Velg gruppe :</label>
 							<select class="form-control" id="chosen" name="chosen">
 								<option value="gudstjenester" <?php echo ($chosen=='gudstjenester' ? 'selected' : '') ?>>Gudstjenester</option>
 								<option value="jesha" <?php echo ($chosen=='jesha' ? 'selected' : '') ?>>Jesha</option>
