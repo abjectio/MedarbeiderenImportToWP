@@ -37,7 +37,7 @@ function showHTML() {
 		<!-- LEFT COLUMN -->
 		<div class="col-sm-4">
 			<!-- Panel INFO -->
-			<div class="panel panel-info">
+			<div class="panel panel-default">
 				<div class="panel-heading">Medarbeideren import - informasjon</div>
 				<div class="panel-body">
 					<p>Funksjonen nedenfor eksekverer en import rutine på tjeneren. Den vil hente data fra Medarbeideren og importere disse inn i wordpress instansen.</p>
