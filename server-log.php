@@ -1,5 +1,5 @@
 <?php 
-	define('REFRESH_LOG_CMD', 'cat -n /tmp/import_events.log');
+	define('REFRESH_LOG_CMD', 'cat /tmp/import_events.log');
   
 	$getLog = $_GET["getlog"];
 	if($getLog=='true'){echo refreshLog();}
