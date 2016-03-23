@@ -13,11 +13,11 @@ License: GPLv3
 	define('IMPORT_PY_DIR', dirname(__FILE__) . '/wp-labora-py/');
 	define('IMPORT_PY', constant('IMPORT_PY_DIR') . 'import_events.py');
 	define('IMPORT_PY_EVENTS', 'import_events_');
-	define('REFRESH_LOG_CMD', 'tail -20 /tmp/import_events.log');
 	
 
 	//Require once to load the php code, else it would not be found
 	require_once( dirname(__FILE__) . '/medarbeideren-import.php' );
+	
 
 	/* Runs when plugin is activated */
 	register_activation_hook(__FILE__,'med_import_to_wp_install'); 
@@ -37,6 +37,7 @@ License: GPLv3
 
 	if (is_admin() ){
 		
+		
 		/* Call the code */
 		add_action('admin_menu', 'med_import_to_wp_admin_menu');		
 		
@@ -48,7 +49,8 @@ License: GPLv3
 	function myplugin_settings_admininit() {			
 		//register_setting( 'myplugin', 'myplugin_setting_1', 'intval' );
 		//register_setting( 'myplugin', 'myplugin_setting_2', 'intval' );		
-	}
+	}	
 	add_action( 'admin_init', 'myplugin_settings_admininit' );	
+
 	
 ?>

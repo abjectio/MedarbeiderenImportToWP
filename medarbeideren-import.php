@@ -3,6 +3,7 @@
 /*
  * showHTML - displays the plugin within the admin menu  
  */
+
 function showHTML() {
 
   if ( !current_user_can('import') )
@@ -10,20 +11,19 @@ function showHTML() {
 
 	//Get the chosen events
 	$chosen = $_REQUEST['chosen'];
-	$refresh_btn = $_REQUEST['refresh-log-btn'];
 	$import_btn = $_REQUEST['start-import-btn'];
 
 	//Styles and scripts (Bootstrap)
 	wp_register_style( 'medimp_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' );
 	wp_register_style( 'medimp_bootstraptheme', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' );
-	//wp_register_script( 'medimp_jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js' );
-	//wp_register_script( 'medimp_bootstrap_js', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' );
+	wp_register_script( 'medimp_jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js' );
+	wp_register_script( 'medimp_bootstrap_js', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' );
 	
 	wp_enqueue_style( 'medimp_bootstrap');
 	wp_enqueue_style( 'medimp_bootstraptheme');
-	//wp_enqueue_script( 'medimp_jquery');
-	//wp_enqueue_script( 'medimp_bootstrap_js');
-	
+	wp_enqueue_script( 'medimp_jquery');
+	wp_enqueue_script( 'medimp_bootstrap_js');
+
 	?>
 
 	</br>
@@ -62,21 +62,10 @@ function showHTML() {
 								<option value="tabago" <?php echo ($chosen=='tabago' ? 'selected' : '') ?>>Tabago</option>
 						  </select>
 						</div> <!-- Form Group -->
-						<button type="submit" id="start-import-btn" name="start-import-btn" class="btn btn-danger">Start import</button>
+						<button type="submit" id="start-import-btn" name="start-import-btn" class="btn btn-danger" >Start import</button>
 
 				</div> <!-- Panel body end -->
-			</div> <!-- Panel IMPORT END -->
-				
-			<!-- Panel REFRESH LOG -->
-			<div class="panel panel-default">
-				<div class="panel-heading">Les fra server loggen</div>
-				<div class="panel-body">
-					<p>Oppfrisker loggen med et utdrag fra importen (resultat vises nedenfor knappen).</p>
-					<p>Når importen er ferdig vil du se teksten <b>[END IMPORT]</b> i loggen.</p>
-					
-					<button name="refresh-log-btn" class="btn btn-primary">Refresh Log</button>
-				</div> <!-- Panel body end -->
-			</div> <!-- Panel REFRESH LOG END -->
+			</div> <!-- Panel IMPORT END -->				
 				
 		</div> <!-- LEFT COLUMN END -->
 		
@@ -87,18 +76,49 @@ function showHTML() {
 			<div class="panel panel-primary">
 				<div class="panel-heading">Server logg</div>
 				<div class="panel-body">
+					<div id="loggen"></div>					
 					<?php
 					//Check what action to perform - refresh or the import?
 					if(isset($chosen) && isset($import_btn)) {importEvents($chosen);};
-					if(isset($refresh_btn)){refreshLog();};
 					?>
 				</div> <!-- Panel body end -->
 				</div> <!-- Panel LOG OUTPUT END -->
 				
 		</div> <!-- RIGHT COLUMN END -->
 	</div> <!-- GRID WITH TWO COLUMNS END -->
-	
+
+
 	</form> <!-- Everything in one form -->
+
+<body onLoad="replaceLog();startRefresh()"/>
+<script>
+
+//intervalID for refresh - disable it when log is finished
+intervalID = null;
+
+function startRefresh() {	
+	intervalID = setInterval(replaceLog, 1000);
+}
+
+function stopRefresh() {
+
+	$('#start-import-btn').attr("disabled", false);
+	$('#chosen').attr("disabled", false);
+	clearInterval(intervalID);
+
+}	
+
+function replaceLog() {
+		$('#start-import-btn').attr("disabled", true);
+		$('#chosen').attr("disabled", true);
+		$.get("../wp-content/plugins/MedarbeiderenImportToWP/server-log.php?getlog=true", function(data, status){
+			$('#loggen').html(data);
+			if (data.search("END IMPORT")>0) { stopRefresh(); };
+    });
+}
+
+</script>	
+
 <?php	
 }
 
@@ -110,29 +130,10 @@ function showHTML() {
  */
 function importEvents($chosen) {
 		
-	if(isset($chosen)){
-		
-		$alertmsg = '<div class="alert alert-warning">Eksekverer importering av gruppen - <strong>' . $chosen . '</strong></div>';
-		
+	if(isset($chosen)){				
 		$cmdline = constant('IMPORT_PY') . ' ' . constant('IMPORT_PY_DIR') . constant('IMPORT_PY_EVENTS'). $chosen . '.cfg';
 		echo $alertmsg;
-		//echo '</br>Command (runs on server) => ' . $cmdline;
 		$result = shell_exec($cmdline . ' >> /dev/null &');
-		refreshLog();		
 	}	
-}
-
-/*
- * refreshLog()
- * Using tail to grab the last output from
- * the import and displays it on the right column.
- */
-function refreshLog() {	
-	
-	$output = shell_exec(constant('REFRESH_LOG_CMD'));
-	$output = '<code>' . $output;
-	$output = str_replace(PHP_EOL,"</br>",$output);	
-	$output = $output . '</code>';
-	echo $output;
 }
 ?>
