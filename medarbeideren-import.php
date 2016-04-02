@@ -112,7 +112,9 @@ function replaceLog() {
 		$('#chosen').attr("disabled", true);
 		$.get("../wp-content/plugins/MedarbeiderenImportToWP/server-log.php?getlog=true", function(data, status){
 			$('#loggen').html(data);
-			if (data.search("END IMPORT")>0) { stopRefresh(); };
+
+		//If file did not exist data would be empty (typically reboot cleans /tmp area) or check if file has ended with the key word "END IMPORT"
+		if ((data==null || data=='') || data.search("END IMPORT")>0) { stopRefresh(); };
     });
 }
 

@@ -11,7 +11,14 @@
  */
 function refreshLog() {		
 	$output = shell_exec(constant('REFRESH_LOG_CMD'));
-	$output = '<code>' . str_replace(PHP_EOL,"<br>",$output) . '</code>';
+	
+	if(!empty($output)){
+		$output = '<code>' . str_replace(PHP_EOL,"<br>",$output) . '</code>';
+	} else {
+		//To tell refresh that file did not exist
+		$output = null;
+	}
+		
 	return $output;
 }
 ?>
