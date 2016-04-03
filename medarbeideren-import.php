@@ -114,7 +114,7 @@ function replaceLog() {
 			$('#loggen').html(data);
 
 		//If file did not exist data would be empty (typically reboot cleans /tmp area) or check if file has ended with the key word "END IMPORT"
-		if ((data==null || data=='') || data.search("END IMPORT")>0) { stopRefresh(); };
+		if ((data==null || data=='') || data.search("EXIT")>0 || data.search("END IMPORT")>0) { stopRefresh(); };
     });
 }
 
@@ -130,11 +130,10 @@ function replaceLog() {
  * - Using the python script and chosen group to import
  */
 function importEvents($chosen) {
-		
+
 	if(isset($chosen)){				
 		$cmdline = constant('IMPORT_PY') . ' ' . constant('IMPORT_PY_DIR') . constant('IMPORT_PY_EVENTS'). $chosen . '.cfg';
-		echo $alertmsg;
-		$result = shell_exec($cmdline . ' >> /dev/null &');
+		$result = shell_exec($cmdline . ' >> /dev/null &');		
 	}	
 }
 ?>
