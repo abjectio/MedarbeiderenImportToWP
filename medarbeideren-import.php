@@ -59,6 +59,7 @@ function showHTML() {
 								<option value="esc" <?php echo ($chosen=='esc' ? 'selected' : '') ?>>ESC (Ungdom)</option>
 								<option value="konfirmant" <?php echo ($chosen=='konfirmant' ? 'selected' : '') ?>>Konfirmant</option>
 								<option value="tabago" <?php echo ($chosen=='tabago' ? 'selected' : '') ?>>Tabago</option>
+								<option value="barnekor" <?php echo ($chosen=='barnekor' ? 'selected' : '') ?>>Barnekor</option>
 						  </select>
 						</div> <!-- Form Group -->
 						<button type="submit" id="start-import-btn" name="start-import-btn" class="btn btn-danger" >Start import</button>
