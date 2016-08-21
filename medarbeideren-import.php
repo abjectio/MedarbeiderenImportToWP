@@ -56,6 +56,7 @@ function showHTML() {
 							<select class="form-control" id="chosen" name="chosen">
 								<option value="gudstjenester" <?php echo ($chosen=='gudstjenester' ? 'selected' : '') ?>>Gudstjenester</option>
 								<option value="jesha" <?php echo ($chosen=='jesha' ? 'selected' : '') ?>>Jesha</option>
+								<option value="jentekveld" <?php echo ($chosen=='jentekveld' ? 'selected' : '') ?>>Jentekveld</option>
 								<option value="esc" <?php echo ($chosen=='esc' ? 'selected' : '') ?>>ESC (Ungdom)</option>
 								<option value="konfirmant" <?php echo ($chosen=='konfirmant' ? 'selected' : '') ?>>Konfirmant</option>
 								<option value="tabago" <?php echo ($chosen=='tabago' ? 'selected' : '') ?>>Tabago</option>
